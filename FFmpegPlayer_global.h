@@ -1,0 +1,12 @@
+#ifndef FFMPEGPLAYER_GLOBAL_H
+#define FFMPEGPLAYER_GLOBAL_H
+
+#include <QtCore/qglobal.h>
+
+#if defined(FFMPEGPLAYER_LIBRARY)
+#  define FFMPEGPLAYER_EXPORT Q_DECL_EXPORT
+#else
+#  define FFMPEGPLAYER_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // FFMPEGPLAYER_GLOBAL_H
