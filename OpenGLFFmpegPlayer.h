@@ -13,6 +13,7 @@
 #include <QOpenGLFunctions>
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions>
+
 #include <QGLShaderProgram>
 #include <mutex>
 
@@ -20,8 +21,9 @@
 #include "FFmpegDemuxer.h"
 #include "VideoDecoder.h"
 #include "FFmpegManager.h"
+#include "FFmpegPlayer_global.h"
 
-class OpenGLFFmpegPlayer : public QOpenGLWidget,public QOpenGLFunctions
+class FFMPEGPLAYER_EXPORT OpenGLFFmpegPlayer : public QOpenGLWidget,public QOpenGLFunctions
 {
     Q_OBJECT
 public:
