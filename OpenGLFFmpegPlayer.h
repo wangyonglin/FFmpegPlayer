@@ -42,12 +42,10 @@ public slots:
     void resizeGL(int w, int h) Q_DECL_OVERRIDE;
     void paintGL() Q_DECL_OVERRIDE;
     void buildImage(const QImage &image);
-    void initTextures();
-    void initShaders();
 private:
     QVector<QVector3D> vertices;
     QVector<QVector2D> texCoords;
-    QOpenGLShaderProgram program;
+    QOpenGLShaderProgram *program;
     QOpenGLTexture *texture;
     QMatrix4x4 projection;
 

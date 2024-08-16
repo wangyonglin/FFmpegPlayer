@@ -55,4 +55,9 @@ unix {
 
 DISTFILES += \
     FFmpegPlayer.pro.user \
+    OpenGLFFmpegPlayer.fsh \
+    OpenGLFFmpegPlayer.vsh \
     READMD.md
+
+RESOURCES += \
+    resources.qrc
