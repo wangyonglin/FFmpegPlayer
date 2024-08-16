@@ -1,7 +1,7 @@
  #   FFmpegPlayer QT播放器 运行库
  ｀｀｀
+ 
  	#include <QResizeEvent>
-
 	ChatWidget::ChatWidget(QWidget *parent)
 	    : QWidget(parent)
 
@@ -23,8 +23,9 @@
 	{
 	     ffmpegplayer->resize(event->size());
 	}
+	
 
-｀｀｀
+
     LIBS += -lavcodec
     LIBS += -lavdevice
     LIBS += -lavfilter
@@ -34,3 +35,6 @@
     LIBS += -lswresample
     LIBS += -lcblas
     LIBS += -Wall -lpthread
+    
+    
+｀｀｀
