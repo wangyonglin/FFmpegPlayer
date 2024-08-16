@@ -1,9 +1,0 @@
-    LIBS += -lavcodec
-    LIBS += -lavdevice
-    LIBS += -lavfilter
-    LIBS += -lavformat
-    LIBS += -lavutil
-    LIBS += -lswscale
-    LIBS += -lswresample
-    LIBS += -lcblas
-    LIBS += -Wall -lpthread
