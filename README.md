@@ -1,4 +1,8 @@
- #   FFmpegPlayer 采用依赖库 FFmpeg ＆ QT 
+ #   FFmpegPlayer 视频播放器模块 
+## 默认使用依赖库版本信息
+
+	1.FFmpeg4.4.1
+	2.Qt 5.12.8
 
 ### 默认生成动态库文件
 
