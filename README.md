@@ -1,8 +1,14 @@
  #   FFmpegPlayer 视频播放器模块 
-## 默认使用依赖库版本信息
 
-	1.FFmpeg4.4.1
-	2.Qt 5.12.8
+## 原主使用的开发环境
+
+	Linux:	Ubuntu 20.04.6 LTS
+	Release:	20.04
+	Codename:	focal
+
+	FFmpeg4.4.1
+
+	Qt 5.12.8
 
 ### 默认生成动态库文件
 
