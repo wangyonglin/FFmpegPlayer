@@ -1,8 +1,17 @@
- #   FFmpegPlayer QT播放器 运行库
+ #   FFmpegPlayer 采用依赖库 FFmpeg ＆ QT 
 
- OpenGLFFmpegPlayer 采用 QOpenGLWidget opengl 渲染 Qimage
+### 默认生成动态库文件
+
+```shell
+wangyonglin@wangyonglin-macmini:~/github/build-FFmpegPlayer-Rk3588_Buildroot_aarch64-Debug$ ls libFFmpegPlayer*
+libFFmpegPlayer.so    libFFmpegPlayer.so.1.0
+libFFmpegPlayer.so.1  libFFmpegPlayer.so.1.0.0
+```
+
+ ### OpenGLFFmpegPlayer 采用 QOpenGLWidget opengl 渲染 Qimage
 
 ```c++
+	// 使用例子
 	#include <QResizeEvent>
 	ChatWidget::ChatWidget(QWidget *parent)
 	    : QWidget(parent)
@@ -25,10 +34,10 @@
 	}
 ```
 
-FFmpegPlayer 采用 QWidget paintEvent QPainter 渲染 Qimage
+### FFmpegPlayer 采用 QWidget paintEvent QPainter 渲染 Qimage
 
 ```c++
-
+	// 使用例子
 	#include <QResizeEvent>
 	ChatWidget::ChatWidget(QWidget *parent)
 	    : QWidget(parent)
@@ -51,8 +60,8 @@ FFmpegPlayer 采用 QWidget paintEvent QPainter 渲染 Qimage
 	     ffmpegplayer->resize(event->size());
 	}
 ```
-主项目的 *.pro
-	增加 需要的信赖库 ffmpeg 参考配置 
+### 主项目的 *.pro
+#### 增加需要的信赖库参考配置 ffmpeg  
 ```pro
    QT       += core gui multimedia opengl
 
