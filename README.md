@@ -97,18 +97,19 @@ CONFIG(debug, debug|release){
     unix{
         contains(QT_ARCH, arm64){
         message("arm64")
-        INCLUDEPATH += /home/wangyonglin/github/FFmpegPlayer
-        LIBS += -L$$PWD/lib/unix/aarch64 -lFFmpegPlayer
+        INCLUDEPATH +=/home/wangyonglin/github/FFmpegPlayer
+        LIBS += -L/home/wangyonglin/github/build-FFmpegPlayer-Rk3588_Buildroot_aarch64-Debug \
+             -lFFmpegPlayer
 
-        INCLUDEPATH += $$PWD/include/ffmpeg/include
-        LIBS += -L$$PWD/lib/unix/aarch64 -lavcodec
-        LIBS += -L$$PWD/lib/unix/aarch64 -lavdevice
-        LIBS += -L$$PWD/lib/unix/aarch64 -lavfilter
-        LIBS += -L$$PWD/lib/unix/aarch64 -lavformat
-        LIBS += -L$$PWD/lib/unix/aarch64 -lavutil
-        LIBS += -L$$PWD/lib/unix/aarch64 -lswscale
-        LIBS += -L$$PWD/lib/unix/aarch64 -lswresample
-        #LIBS += -L/home/wangyonglin/Qt/sysroot/usr/lib/aarch64-linux-gnu -lcblas
+        INCLUDEPATH +=/wangyonglin/rootfs/usr/local/ffmpeg4.4.1/include
+        LIBS += -L/wangyonglin/rootfs/usr/local/ffmpeg4.4.1/lib \
+             -lavcodec \
+             -lavdevice \
+             -lavfilter \
+             -lavformat \
+             -lavutil \
+             -lswscale \
+             -lswresample
         }else{
         message("x86")
         INCLUDEPATH += /home/wangyonglin/github/FFmpegPlayer

@@ -51,6 +51,10 @@ private:
 
 signals:
     void finished();
+
+    // QWidget interface
+protected:
+    virtual void resizeEvent(QResizeEvent *event) override;
 };
 
 #endif // OpenGLFFmpegPlayer_H

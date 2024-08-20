@@ -1,5 +1,5 @@
 #include "OpenGLFFmpegPlayer.h"
-
+#include <QResizeEvent>
 
 OpenGLFFmpegPlayer::OpenGLFFmpegPlayer(QWidget *parent)
     :QOpenGLWidget{parent},
@@ -184,4 +184,10 @@ void OpenGLFFmpegPlayer::buildImage(const QImage &image)
     //设置纹理细节
     texture->setLevelofDetailBias(-1);//值越小，图像越清晰
     update();
+}
+
+void OpenGLFFmpegPlayer::resizeEvent(QResizeEvent *event)
+{
+    resize(event->size());
+    resizeGL(width(),height());
 }
