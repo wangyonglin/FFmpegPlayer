@@ -19,7 +19,7 @@ public:
 private:
     virtual void loopRunnable();
     FFmpegResampler *ffmpegResample;
-    FFmpegSpeaker *ffmpegSpeaker;
+    Qt6FFmpeg::FFmpegSpeaker *ffmpegSpeaker;
     FFmpegManager * manager;
     void BuildDecoder(AVCodecContext *codec_ctx, FFmpegPacket *pkt_queue, FFmpegFrame *frame_queue);
 public slots:

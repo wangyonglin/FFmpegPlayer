@@ -66,7 +66,7 @@ void FFmpegThreader::loopResume()
 
 void FFmpegThreader::run()
 {
-    qDebug() << "enter thread : " << QThread::currentThreadId();
+    //qDebug() << "enter thread : " << QThread::currentThreadId();
     while (!stopFlag)
     {
 
@@ -82,5 +82,5 @@ void FFmpegThreader::run()
     pauseFlag = false;
     stopFlag = false;
 
-    qDebug() << "exit thread : " << QThread::currentThreadId();
+    //qDebug() << "exit thread : " << QThread::currentThreadId();
 }

@@ -1,9 +1,9 @@
-#include "FFmpegPlayer.h"
+#include "QFFmpegPlayer.h"
 
 #include <QPainter>
 #include <QResizeEvent>
 
-FFmpegPlayer::FFmpegPlayer(QWidget *parent)
+Qt6FFmpeg::QFFmpegPlayer::QFFmpegPlayer(QWidget *parent)
     :QWidget{parent},
     ffmpegManager(new FFmpegManager(this)),
     ffmpegDemuxer(new FFmpegDemuxer(this)),
@@ -14,14 +14,14 @@ FFmpegPlayer::FFmpegPlayer(QWidget *parent)
        emit finished();
        qDebug("finished");
     });
-    connect(video_dec,&VideoDecoder::updateImage,this,&FFmpegPlayer::buildImage);
+    connect(video_dec,&VideoDecoder::updateImage,this,&Qt6FFmpeg::QFFmpegPlayer::buildImage);
 
     ffmpegDemuxer->loopStart();
     audio_dec->loopStart();
     video_dec->loopStart();
 }
 
-FFmpegPlayer::~FFmpegPlayer()
+Qt6FFmpeg::QFFmpegPlayer::~QFFmpegPlayer()
 {
     ffmpegDemuxer->frameFinished=true;
     audio_dec->frameFinished=true;
@@ -36,7 +36,7 @@ FFmpegPlayer::~FFmpegPlayer()
 
 
 
-void FFmpegPlayer::Play(const QString &url)
+void Qt6FFmpeg::QFFmpegPlayer::Play(const QString &url)
 {
     ffmpegManager->url=url;
     ffmpegDemuxer->loopPause();
@@ -80,7 +80,7 @@ void FFmpegPlayer::Play(const QString &url)
 }
 
 
-void FFmpegPlayer::Stop()
+void Qt6FFmpeg::QFFmpegPlayer::Stop()
 {
 
     ffmpegDemuxer->frameFinished=true;
@@ -93,21 +93,21 @@ void FFmpegPlayer::Stop()
 
 }
 
-void FFmpegPlayer::buildImage(const QImage &image)
+void Qt6FFmpeg::QFFmpegPlayer::buildImage(const QImage &image)
 {
     frameImage=image.scaled(size(),Qt::KeepAspectRatio, Qt::SmoothTransformation);
 
     update();
 }
 
-void FFmpegPlayer::paintEvent(QPaintEvent *event)
+void Qt6FFmpeg::QFFmpegPlayer::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event);
     QPainter painter(this);
     painter.drawImage(rect(), frameImage);
 }
 
-void FFmpegPlayer::resizeEvent(QResizeEvent *event)
+void Qt6FFmpeg::QFFmpegPlayer::resizeEvent(QResizeEvent *event)
 {
     resize(event->size());
 }

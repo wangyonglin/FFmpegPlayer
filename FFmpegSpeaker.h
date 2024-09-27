@@ -2,24 +2,35 @@
 #define FFMPEGSPEAKER_H
 
 #include <QObject>
-#include <QAudioOutput>
-#include <QIODevice>
+#include <QAudioDevice>
+#include <QMediaDevices>
+#include <QAudioSource>
+#include <QAudioSink>
+#include "Qt6FFmpeg_global.h"
 
-class FFmpegSpeaker : public QObject
+namespace Qt6FFmpeg {
+
+class QT6FFMPEG_EXPORT FFmpegSpeaker : public QObject
 {
     Q_OBJECT
 public:
     explicit FFmpegSpeaker(QObject *parent = nullptr);
+    QList<QAudioDevice> getAudioDevices();
+    QAudioFormat format();
+    void destroy();
+    void init(const QAudioFormat &format, const QString &description=nullptr);
+    void create();
+public slots:
+    void write(const QByteArray &data);
 
-    void InitConfig(int dst_nb_samples, int rate, int sample_size, int nch);
-    void Player(const char* data, qint64 len);
-    void Stop();
-    void Player(QByteArray bytes);
 private:
-    QIODevice* io=nullptr;
-    QAudioOutput* audiooutput=nullptr;
-    int64_t player_start_time_ms = 0;
-
+    QAudioDevice defaultDevice;
+    QAudioFormat defaultFormat;
+    QMediaDevices *qMediaDevices;
+    QAudioSink* qAudioSink;
+    QIODevice *qIODevice;
+    QList<QAudioDevice> listDevices;
+signals:
 };
-
+}
 #endif // FFMPEGSPEAKER_H

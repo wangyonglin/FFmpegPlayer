@@ -1,29 +1,19 @@
-#ifndef FFMPEGPLAYER_H
-#define FFMPEGPLAYER_H
+#ifndef QFFMPEGPLAYER_H
+#define QFFMPEGPLAYER_H
 
 #include <QWidget>
-#include <QObject>
-#include <QString>
-#include <QOpenGLFunctions>
-#include <QOpenGLShaderProgram>
-#include <QOpenGLTexture>
-#include <QOpenGLBuffer>
-#include <QOpenGLShader>
-#include <QOpenGLWidget>
-#include <QOpenGLFunctions>
-
 #include "AudioDecoder.h"
 #include "FFmpegDemuxer.h"
 #include "VideoDecoder.h"
-#include "FFmpegPlayer_global.h"
-
-class FFMPEGPLAYER_EXPORT FFmpegPlayer : public QWidget
+#include "Qt6FFmpeg_global.h"
+namespace Qt6FFmpeg {
+class QT6FFMPEG_EXPORT QFFmpegPlayer : public QWidget
 {
     Q_OBJECT
 public:
 
-    explicit FFmpegPlayer(QWidget *parent = nullptr);
-    ~FFmpegPlayer();
+    explicit QFFmpegPlayer(QWidget *parent = nullptr);
+    ~QFFmpegPlayer();
 
     void Play(const QString &url);
     void Stop();
@@ -36,7 +26,7 @@ private:
     FFmpegManager * ffmpegManager;
     QImage frameImage;
 public slots:
-       void buildImage(const QImage &image);
+    void buildImage(const QImage &image);
 signals:
     void finished();
     // QWidget interface
@@ -47,5 +37,7 @@ protected:
 protected:
     virtual void resizeEvent(QResizeEvent *event) override;
 };
+}
 
-#endif // FFMPEGPLAYER_H
+
+#endif // QFFMPEGPLAYER_H

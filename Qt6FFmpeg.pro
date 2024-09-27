@@ -3,7 +3,7 @@ QT += gui core gui multimedia opengl widgets
 
 TEMPLATE = lib
 
-DEFINES += FFMPEGPLAYER_LIBRARY
+DEFINES += QT6FFMPEG_LIBRARY
 
 CONFIG += c++11
 
@@ -17,19 +17,20 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # In order to do so, uncomment the following line.
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
-
+#INCLUDEPATH += $$PWD/include
+#LIBS += -L$$PWD/lib/linux/aarch64 -lavcodec -lavdevice -lavfilter -lavformat -lavutil -lswresample -lswscale
 SOURCES += \
     AudioDecoder.cpp \
     FFmpegDemuxer.cpp \
     FFmpegFrame.cpp \
     FFmpegManager.cpp \
     FFmpegPacket.cpp \
-    FFmpegPlayer.cpp \
     FFmpegResampler.cpp \
     FFmpegSpeaker.cpp \
     FFmpegSynchronizer.cpp \
     FFmpegThreader.cpp \
     OpenGLFFmpegPlayer.cpp \
+    QFFmpegPlayer.cpp \
     VideoDecoder.cpp
 
 HEADERS += \
@@ -38,13 +39,13 @@ HEADERS += \
     FFmpegFrame.h \
     FFmpegManager.h \
     FFmpegPacket.h \
-    FFmpegPlayer_global.h \
-    FFmpegPlayer.h \
     FFmpegResampler.h \
     FFmpegSpeaker.h \
     FFmpegSynchronizer.h \
     FFmpegThreader.h \
     OpenGLFFmpegPlayer.h \
+    QFFmpegPlayer.h \
+    Qt6FFmpeg_global.h \
     VideoDecoder.h
 
 # Default rules for deployment.
@@ -54,7 +55,6 @@ unix {
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
-    FFmpegPlayer.pro.user \
     OpenGLFFmpegPlayer.fsh \
     OpenGLFFmpegPlayer.vsh \
     README.md

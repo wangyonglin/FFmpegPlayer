@@ -6,7 +6,7 @@
 AudioDecoder::AudioDecoder(QObject *parent)
     : FFmpegThreader(parent)
 {
-    ffmpegSpeaker= new FFmpegSpeaker(this);
+    ffmpegSpeaker= new  Qt6FFmpeg::FFmpegSpeaker(this);
     ffmpegResample = new FFmpegResampler(this);
 
 }
@@ -69,7 +69,13 @@ FFmpegManager *AudioDecoder::initParameters(FFmpegManager * manager){
 
     ffmpegResample->InitFFmpegResampler(manager->audio_codec_ctx,AV_CH_LAYOUT_STEREO,44100,AV_SAMPLE_FMT_S16);
     int data_size = av_get_bytes_per_sample(AV_SAMPLE_FMT_S16);
-    ffmpegSpeaker->InitConfig(0,44100,data_size*8,2);
+    QAudioFormat format;
+    format.setSampleRate(44100);
+    format.setChannelCount(2);
+    format.setSampleFormat(QAudioFormat::SampleFormat::Int16);
+    ffmpegSpeaker->init(format);
+    ffmpegSpeaker->create();
+    //ffmpegSpeaker->InitConfig(0,44100,data_size*8,2);
     return manager;
 }
 
@@ -106,7 +112,7 @@ void AudioDecoder::loopRunnable()
                 int64_t pts_time= (frame->pts == AV_NOPTS_VALUE) ? NAN : frame->pts;
                 manager->audio_synchronize(pts_time,manager->audio_pts_begin,manager->audio_pts_base);
                 QByteArray bytes= ffmpegResample->BuiledConvert(frame);
-                ffmpegSpeaker->Player(bytes);
+                ffmpegSpeaker->write(bytes);
                 av_frame_free(&frame);
             }
 
