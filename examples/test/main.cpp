@@ -12,6 +12,7 @@ int main(int argc, char *argv[])
     player.play("https://cesium.com/public/SandcastleSampleData/big-buck-bunny_trailer.mp4");
     a.connect(&player,&Qt6FFmpeg::FFmpegPlayer::finished,[&](){
     player.stop();
+        a.exit();
     });
     player.show();
     return a.exec();
