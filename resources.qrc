@@ -1,6 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>OpenGLFFmpegPlayer.fsh</file>
-        <file>OpenGLFFmpegPlayer.vsh</file>
-    </qresource>
-</RCC>

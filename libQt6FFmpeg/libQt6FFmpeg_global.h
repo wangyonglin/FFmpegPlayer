@@ -1,0 +1,12 @@
+#ifndef LIBQT6FFMPEG_GLOBAL_H
+#define LIBQT6FFMPEG_GLOBAL_H
+
+#include <QtCore/qglobal.h>
+
+#if defined(LIBQT6FFMPEG_LIBRARY)
+#  define LIBQT6FFMPEG_EXPORT Q_DECL_EXPORT
+#else
+#  define LIBQT6FFMPEG_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // LIBQT6FFMPEG_GLOBAL_H

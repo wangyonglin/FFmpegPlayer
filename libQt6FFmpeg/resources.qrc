@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>QOpenGLPlayer.fsh</file>
+        <file>QOpenGLPlayer.vsh</file>
+    </qresource>
+</RCC>
