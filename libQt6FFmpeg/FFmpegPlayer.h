@@ -28,10 +28,10 @@ public:
     void paintGL();
 
 private:
-    FFmpegDemuxer *ffmpegDemuxer;
-    AudioDecoder *audio_dec;
-    VideoDecoder *video_dec;
-    FFmpegManager * ffmpegManager;
+    FFmpegDemuxer *ffmpegDemuxer=nullptr;
+    AudioDecoder *audio_dec=nullptr;
+    VideoDecoder *video_dec=nullptr;
+    FFmpegManager * ffmpegManager=nullptr;
     //shader程序
     QOpenGLShaderProgram m_program;
     QOpenGLBuffer vbo;

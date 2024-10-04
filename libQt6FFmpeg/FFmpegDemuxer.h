@@ -14,15 +14,15 @@ public:
     bool frameFinished=true;
     FFmpegManager*manager;
 public slots:
-    virtual void loopStart(Priority pri = InheritPriority);
-    virtual void loopStop();
-    virtual void loopPause();
-    virtual void loopResume();
+    virtual void start(Priority pri = InheritPriority);
+    virtual void stop();
+    virtual void pause();
+    virtual void resume();
 
-    FFmpegManager* initParameters(FFmpegManager *manager);
-    void freeParameters(FFmpegManager *manager);
+    FFmpegManager* init(FFmpegManager *manager);
+    void release(FFmpegManager *manager);
 private:
-    virtual void loopRunnable() override;
+    virtual void loop() override;
 signals:
     void demuxFinished();
 };

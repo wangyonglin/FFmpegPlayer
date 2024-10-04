@@ -4,7 +4,7 @@ VideoDecoder::VideoDecoder(QObject *parent)
     : FFmpegThreader{parent}
 {}
 
-FFmpegManager *VideoDecoder::initParameters( FFmpegManager * manager){
+FFmpegManager *VideoDecoder::init( FFmpegManager * manager){
     manager->video_codec_ctx = avcodec_alloc_context3(NULL);
     if(!  manager->video_codec_ctx)return nullptr;
     int read_ret = avcodec_parameters_to_context(  manager->video_codec_ctx, manager->video_codecpar);
@@ -54,14 +54,14 @@ FFmpegManager *VideoDecoder::initParameters( FFmpegManager * manager){
     return  manager;
 }
 
-void VideoDecoder::freeParameters(FFmpegManager * manager){
+void VideoDecoder::release(FFmpegManager * manager){
     if( manager->video_codec_ctx){
         avcodec_free_context(& manager->video_codec_ctx);
         manager->video_codec_ctx=nullptr;
     }
 }
 
-void VideoDecoder::loopRunnable()
+void VideoDecoder::loop()
 {
 
     if(state()==Running && !frameFinished){

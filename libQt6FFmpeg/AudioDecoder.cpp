@@ -14,26 +14,26 @@ AudioDecoder::AudioDecoder(QObject *parent)
 AudioDecoder::~AudioDecoder()
 {
 }
-void AudioDecoder::loopStart(Priority pri)
+void AudioDecoder::start(Priority pri)
 {
-    FFmpegThreader::loopStart(pri);
+    FFmpegThreader::start(pri);
 }
 
-void AudioDecoder::loopStop()
+void AudioDecoder::stop()
 {
-    FFmpegThreader::loopStop();
+    FFmpegThreader::stop();
 }
-void AudioDecoder::loopPause()
+void AudioDecoder::pause()
 {
-    FFmpegThreader::loopPause();
-}
-
-void AudioDecoder::loopResume()
-{
-    FFmpegThreader::loopResume();
+    FFmpegThreader::pause();
 }
 
-FFmpegManager *AudioDecoder::initParameters(FFmpegManager * manager){
+void AudioDecoder::resume()
+{
+    FFmpegThreader::resume();
+}
+
+FFmpegManager *AudioDecoder::init(FFmpegManager * manager){
     manager->audio_codec_ctx = avcodec_alloc_context3(NULL);
     int read_ret = avcodec_parameters_to_context(manager->audio_codec_ctx, manager->audio_codecpar);
     if(read_ret < 0) {
@@ -79,7 +79,7 @@ FFmpegManager *AudioDecoder::initParameters(FFmpegManager * manager){
     return manager;
 }
 
-void AudioDecoder::freeParameters(FFmpegManager * manager){
+void AudioDecoder::release(FFmpegManager * manager){
     if(manager->audio_codec_ctx){
         avcodec_free_context(&manager->audio_codec_ctx);
         manager->audio_codec_ctx=nullptr;
@@ -88,7 +88,7 @@ void AudioDecoder::freeParameters(FFmpegManager * manager){
 }
 
 
-void AudioDecoder::loopRunnable()
+void AudioDecoder::loop()
 {
 
     if(state()==Running && !frameFinished){

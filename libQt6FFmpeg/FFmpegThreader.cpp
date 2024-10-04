@@ -29,14 +29,14 @@ FFmpegThreader::State FFmpegThreader::state() const
     return s;
 }
 
-void FFmpegThreader::loopStart(QThread::Priority pri)
+void FFmpegThreader::start(QThread::Priority pri)
 {
     QThread::start(pri);
 }
 
 
 
-void FFmpegThreader::loopStop()
+void FFmpegThreader::stop()
 {
     if (QThread::isRunning())
     {
@@ -47,7 +47,7 @@ void FFmpegThreader::loopStop()
     }
 }
 
-void FFmpegThreader::loopPause()
+void FFmpegThreader::pause()
 {
     if (QThread::isRunning())
     {
@@ -55,7 +55,7 @@ void FFmpegThreader::loopPause()
     }
 }
 
-void FFmpegThreader::loopResume()
+void FFmpegThreader::resume()
 {
     if (QThread::isRunning())
     {
@@ -70,7 +70,7 @@ void FFmpegThreader::run()
     while (!stopFlag)
     {
 
-        loopRunnable(); // do something...
+        loop(); // do something...
 
         if (pauseFlag)
         {

@@ -51,7 +51,6 @@ SOURCES += \
     FFmpegSpeaker.cpp \
     FFmpegSynchronizer.cpp \
     FFmpegThreader.cpp \
-    QFFmpegPlayer.cpp \
     VideoDecoder.cpp
 
 HEADERS += \
@@ -65,7 +64,6 @@ HEADERS += \
     FFmpegSpeaker.h \
     FFmpegSynchronizer.h \
     FFmpegThreader.h \
-    QFFmpegPlayer.h \
     libQt6FFmpeg_global.h \
     VideoDecoder.h
 

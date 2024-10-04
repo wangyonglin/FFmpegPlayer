@@ -12,14 +12,14 @@ public:
     explicit VideoDecoder(QObject *parent = nullptr);
     bool frameFinished= true;
 private:
-    virtual void loopRunnable();
+    virtual void loop();
     FFmpegManager * manager;
     AVFrame         *yuvFrame     = NULL;
     void BuildDecoder(AVCodecContext *codec_ctx, FFmpegPacket *pkt_queue, FFmpegFrame *frame_queue);
     QImage frameToQImage(AVFrame *frame);
 public slots:
-    void freeParameters( FFmpegManager * controller);
-    FFmpegManager *initParameters( FFmpegManager * controller);
+    void release( FFmpegManager * controller);
+    FFmpegManager *init( FFmpegManager * controller);
 signals:
     void drawImage(const QImage &image);
     void sigFirst(uchar* p,int w,int h);

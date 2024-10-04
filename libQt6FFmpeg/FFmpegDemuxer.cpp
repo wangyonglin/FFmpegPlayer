@@ -4,7 +4,7 @@ FFmpegDemuxer::FFmpegDemuxer(QObject *parent)
 {
 
 }
-FFmpegManager* FFmpegDemuxer::initParameters(FFmpegManager *manager){
+FFmpegManager* FFmpegDemuxer::init(FFmpegManager *manager){
     if(manager->url.isEmpty())return nullptr;
     if(manager->ifmt_ctx)avformat_free_context( manager->ifmt_ctx);
     manager->ifmt_ctx=nullptr;
@@ -28,38 +28,38 @@ FFmpegManager* FFmpegDemuxer::initParameters(FFmpegManager *manager){
     return manager;
 
 }
-void FFmpegDemuxer::freeParameters(FFmpegManager *manager){
+void FFmpegDemuxer::release(FFmpegManager *manager){
     if(manager->ifmt_ctx){
         avformat_close_input(&manager->ifmt_ctx);
         manager->ifmt_ctx=nullptr;
     }
 }
 
-void FFmpegDemuxer::loopStart(Priority pri)
+void FFmpegDemuxer::start(Priority pri)
 {
 
-    FFmpegThreader::loopStart(pri);
+    FFmpegThreader::start(pri);
 }
 
-void FFmpegDemuxer::loopStop()
+void FFmpegDemuxer::stop()
 {
 
-    FFmpegThreader::loopStop();
+    FFmpegThreader::stop();
 }
 
-void FFmpegDemuxer::loopPause()
+void FFmpegDemuxer::pause()
 {
 
-    FFmpegThreader::loopPause();
+    FFmpegThreader::pause();
 
 }
 
-void FFmpegDemuxer::loopResume()
+void FFmpegDemuxer::resume()
 {
-    FFmpegThreader::loopResume();
+    FFmpegThreader::resume();
 }
 
-void FFmpegDemuxer::loopRunnable()
+void FFmpegDemuxer::loop()
 {
 
     if(state() ==Running && !frameFinished){

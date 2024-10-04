@@ -26,13 +26,13 @@ public:
 
 
 public slots:
-    void loopStart(Priority pri = InheritPriority);
-    void loopStop();
-    void loopPause();
-    void loopResume();
+    void start(Priority pri = InheritPriority);
+    void stop();
+    void pause();
+    void resume();
 protected:
     virtual void run() override final;
-    virtual void loopRunnable()=0;
+    virtual void loop()=0;
 public:
     std::atomic_bool pauseFlag;
     volatile std::atomic_bool stopFlag;
