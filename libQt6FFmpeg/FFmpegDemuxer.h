@@ -24,7 +24,7 @@ public slots:
 private:
     virtual void loop() override;
 signals:
-    void demuxFinished();
+    void reject(int err);
 };
 
 #endif // FFmpegDemuxer_H

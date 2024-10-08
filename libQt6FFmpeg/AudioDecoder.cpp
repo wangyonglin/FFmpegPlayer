@@ -67,7 +67,7 @@ FFmpegManager *AudioDecoder::init(FFmpegManager * manager){
     }
     this->manager=manager;
 
-    ffmpegResample->InitFFmpegResampler(manager->audio_codec_ctx,AV_CH_LAYOUT_STEREO,44100,AV_SAMPLE_FMT_S16);
+    ffmpegResample->init(manager->audio_codec_ctx,AV_CH_LAYOUT_STEREO,44100,AV_SAMPLE_FMT_S16);
     int data_size = av_get_bytes_per_sample(AV_SAMPLE_FMT_S16);
     QAudioFormat format;
     format.setSampleRate(44100);
@@ -84,7 +84,7 @@ void AudioDecoder::release(FFmpegManager * manager){
         avcodec_free_context(&manager->audio_codec_ctx);
         manager->audio_codec_ctx=nullptr;
     }
-    ffmpegResample->FreeFFmpegResampler();
+    ffmpegResample->release();
 }
 
 
@@ -111,7 +111,7 @@ void AudioDecoder::loop()
             if(frame){
                 int64_t pts_time= (frame->pts == AV_NOPTS_VALUE) ? NAN : frame->pts;
                 manager->audio_synchronize(pts_time,manager->audio_pts_begin,manager->audio_pts_base);
-                QByteArray bytes= ffmpegResample->BuiledConvert(frame);
+                QByteArray bytes= ffmpegResample->convert(frame);
                 ffmpegSpeaker->write(bytes);
                 av_frame_free(&frame);
             }

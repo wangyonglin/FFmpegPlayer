@@ -46,24 +46,27 @@ SOURCES += \
     FFmpegFrame.cpp \
     FFmpegManager.cpp \
     FFmpegPacket.cpp \
-    FFmpegPlayer.cpp \
     FFmpegResampler.cpp \
     FFmpegSpeaker.cpp \
     FFmpegSynchronizer.cpp \
     FFmpegThreader.cpp \
+    QFFmpegPlayer.cpp \
+    QFFmpegTool.cpp \
     VideoDecoder.cpp
 
 HEADERS += \
     AudioDecoder.h \
+    FFmpeg.h \
     FFmpegDemuxer.h \
     FFmpegFrame.h \
     FFmpegManager.h \
     FFmpegPacket.h \
-    FFmpegPlayer.h \
     FFmpegResampler.h \
     FFmpegSpeaker.h \
     FFmpegSynchronizer.h \
     FFmpegThreader.h \
+    QFFmpegPlayer.h \
+    QFFmpegTool.h \
     libQt6FFmpeg_global.h \
     VideoDecoder.h
 

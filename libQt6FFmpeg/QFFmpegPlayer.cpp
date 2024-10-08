@@ -1,18 +1,16 @@
-#include "FFmpegPlayer.h"
+#include "QFFmpegPlayer.h"
 #include <QDebug>
 
 
-Qt6FFmpeg::FFmpegPlayer::FFmpegPlayer(QWidget *parent)
+Qt6FFmpeg::QFFmpegPlayer::QFFmpegPlayer(QWidget *parent)
     :QOpenGLWidget(parent),
     ffmpegManager(new FFmpegManager(this)),
     ffmpegDemuxer(new FFmpegDemuxer(this)),
     audio_dec(new AudioDecoder(this)),
     video_dec(new VideoDecoder(this))
 {
-    connect(ffmpegDemuxer,&FFmpegDemuxer::demuxFinished,[=](){
-        emit finished();
-        qDebug("finished");
-    });
+
+    connect(ffmpegDemuxer,&FFmpegDemuxer::reject,this,&Qt6FFmpeg::QFFmpegPlayer::rejectCallback);
     connect(video_dec,&VideoDecoder::sigFirst,[=](uchar* p,int w,int h){
         ptr = p;
         width = w;
@@ -27,7 +25,7 @@ Qt6FFmpeg::FFmpegPlayer::FFmpegPlayer(QWidget *parent)
     video_dec->start();
 }
 
-Qt6FFmpeg::FFmpegPlayer::~FFmpegPlayer()
+Qt6FFmpeg::QFFmpegPlayer::~QFFmpegPlayer()
 {
     ffmpegDemuxer->frameFinished=true;
     audio_dec->frameFinished=true;
@@ -39,7 +37,7 @@ Qt6FFmpeg::FFmpegPlayer::~FFmpegPlayer()
     audio_dec->stop();
     video_dec->stop();
 }
-void Qt6FFmpeg::FFmpegPlayer::play(const QString &url)
+void Qt6FFmpeg::QFFmpegPlayer::play(const QString &url)
 {
     ffmpegManager->url=url;
     ffmpegDemuxer->pause();
@@ -81,7 +79,7 @@ void Qt6FFmpeg::FFmpegPlayer::play(const QString &url)
 
 }
 
-void Qt6FFmpeg::FFmpegPlayer::stop()
+void Qt6FFmpeg::QFFmpegPlayer::stop()
 {
     ffmpegDemuxer->frameFinished=true;
     audio_dec->frameFinished=true;
@@ -93,7 +91,7 @@ void Qt6FFmpeg::FFmpegPlayer::stop()
 
 }
 
-void Qt6FFmpeg::FFmpegPlayer::initializeGL()
+void Qt6FFmpeg::QFFmpegPlayer::initializeGL()
 {
     initializeOpenGLFunctions();
     const char *vsrc =
@@ -151,14 +149,14 @@ void Qt6FFmpeg::FFmpegPlayer::initializeGL()
     idV = ids[2];
 }
 
-void Qt6FFmpeg::FFmpegPlayer::resizeGL(int w, int h)
+void Qt6FFmpeg::QFFmpegPlayer::resizeGL(int w, int h)
 {
     if(h<=0) h=1;
 
     glViewport(0,0,w,h);
 }
 
-void Qt6FFmpeg::FFmpegPlayer::paintGL()
+void Qt6FFmpeg::QFFmpegPlayer::paintGL()
 {
     if(!ptr) return;
 
@@ -204,4 +202,10 @@ void Qt6FFmpeg::FFmpegPlayer::paintGL()
     m_program.disableAttributeArray("vertexIn");
     m_program.disableAttributeArray("textureIn");
     m_program.release();
+}
+
+
+void Qt6FFmpeg::QFFmpegPlayer::rejectCallback(int err)
+{
+    emit reject(err);
 }

@@ -8,19 +8,21 @@ FFmpegManager* FFmpegDemuxer::init(FFmpegManager *manager){
     if(manager->url.isEmpty())return nullptr;
     if(manager->ifmt_ctx)avformat_free_context( manager->ifmt_ctx);
     manager->ifmt_ctx=nullptr;
-    int read_ret = avformat_open_input(&manager->ifmt_ctx, manager->url.toLocal8Bit().data(), NULL, NULL);
-    if(read_ret < 0) {
+    int ret = avformat_open_input(&manager->ifmt_ctx, manager->url.toLocal8Bit().data(), NULL, NULL);
+    if(ret < 0) {
         char errmsg[AV_ERROR_MAX_STRING_SIZE];
-        av_make_error_string(errmsg,AV_ERROR_MAX_STRING_SIZE, read_ret);
+        av_make_error_string(errmsg,AV_ERROR_MAX_STRING_SIZE, ret);
         qDebug() << "avformat_open_input failed" << errmsg;
+        emit reject(-1);
         return nullptr;
     }
-    read_ret = avformat_find_stream_info(manager->ifmt_ctx, NULL);
-    if(read_ret < 0) {
+    ret = avformat_find_stream_info(manager->ifmt_ctx, NULL);
+    if(ret < 0) {
         char errmsg[AV_ERROR_MAX_STRING_SIZE];
-        av_make_error_string(errmsg,AV_ERROR_MAX_STRING_SIZE, read_ret);
+        av_make_error_string(errmsg,AV_ERROR_MAX_STRING_SIZE, ret);
         qDebug() << "avformat_find_stream_info failed" << errmsg;
         avformat_close_input(&manager->ifmt_ctx);
+        emit reject(-2);
         return nullptr;
     }
     av_dump_format(manager->ifmt_ctx, 0, manager->url.toLocal8Bit().data(), 0);
@@ -80,7 +82,7 @@ void FFmpegDemuxer::loop()
                 qDebug() << "Reached end of file" << errmsg;
                 av_packet_unref(pkt);
                 frameFinished=true;
-                emit demuxFinished();
+                emit reject(0);
                 return;
             }
             else

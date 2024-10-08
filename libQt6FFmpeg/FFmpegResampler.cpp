@@ -6,7 +6,7 @@ FFmpegResampler::FFmpegResampler(QObject *parent)
 
 }
 
-int  FFmpegResampler::InitFFmpegResampler(AVCodecContext * dec_ctx,
+int  FFmpegResampler::init(AVCodecContext * dec_ctx,
                                int64_t dst_ch_layout,
                                int dst_rate,
                                enum AVSampleFormat dst_sample_fmt)
@@ -81,7 +81,7 @@ int  FFmpegResampler::InitFFmpegResampler(AVCodecContext * dec_ctx,
 
 
 
-QByteArray FFmpegResampler::BuiledConvert(AVFrame* frame)
+QByteArray FFmpegResampler::convert(AVFrame* frame)
 {
     QByteArray resByte;
     if(!frame) return  resByte;
@@ -141,17 +141,17 @@ QByteArray FFmpegResampler::BuiledConvert(AVFrame* frame)
     return resByte;
 }
 
-void FFmpegResampler::FreeFFmpegResampler()
+void FFmpegResampler::release()
 {
     if (src_data_)
         av_freep(&src_data_[0]);
 
-    av_freep(&src_data_);
+    //av_freep(&src_data_);
 
     if (dst_data_)
         av_freep(&dst_data_[0]);
 
-    av_freep(&dst_data_);
+   // av_freep(dst_data_);
 
     swr_free(&swr_ctx);
 }
